@@ -1,7 +1,7 @@
 # This docker-compose is only to get started with Conduktor.
 # It is starting Conduktor, a Redpanda cluster (Kafka), and a fake app to generate traffic.
 
-# Go to http://localhost:8080 when started
+# Go to http://localhost:8091 when started
 
 ####################################################################################################
 # DO NOT USE IT IN PRODUCTION
@@ -23,7 +23,7 @@ services:
       - postgresql
       - redpanda-0
     ports:
-      - "8080:8080"
+      - "8091:8091"
     volumes:
       - conduktor_data:/var/conduktor
     environment:
@@ -47,8 +47,8 @@ services:
       CDK_CLUSTERS_1_ICON: "dog"
       CDK_MONITORING_CORTEX-URL: http://conduktor-monitoring:9009/
       CDK_MONITORING_ALERT-MANAGER-URL: http://conduktor-monitoring:9010/
-      CDK_MONITORING_CALLBACK-URL: http://conduktor-console:8080/monitoring/api/
-      CDK_MONITORING_NOTIFICATIONS-CALLBACK-URL: http://localhost:8080
+      CDK_MONITORING_CALLBACK-URL: http://conduktor-console:8091/monitoring/api/
+      CDK_MONITORING_NOTIFICATIONS-CALLBACK-URL: http://localhost:8091
       
   # Conduktor stores its metadata in PostgreSQL.
   # Consider using an external managed database for production usage.
@@ -71,7 +71,7 @@ services:
   conduktor-monitoring:
     image: conduktor/conduktor-console-cortex:1.23.0
     environment:
-      CDK_CONSOLE-URL: "http://conduktor-console:8080"
+      CDK_CONSOLE-URL: "http://conduktor-console:8091"
 
   # We use Redpanda to get started with Kafka as it's small and efficient.
   # This is an example here. For production, connect Conduktor to your own Kafka clusters.
